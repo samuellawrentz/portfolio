@@ -1,0 +1,75 @@
+var frontEndSkillCategories = [['HTML5', 8], ['CSS3/SCSS', 8], ['Javascript', 9], ['TypeScript', 9], ['Highcharts', 7], ['Kendo UI', 7]]
+var backEndCategories = [['C#', 7], ['Python', 6], ['C++', 7], ['C', 6], ['.NET', 5], ['NodeJS', 6]];
+var toolsCategories = [['Visual Studio', 8], ['Visual Studio Code', 8], ['GIT', 9], ['Photoshop', 7], ['IIS', 6], ['Fiddler', 8]]
+
+var skillChart = Highcharts.chart('skillsChart', {
+  chart: {
+    type: 'bar',
+    spacingLeft: 30,
+  },
+  title: false,
+  subtitle: false,
+  xAxis: {
+    type: 'category',
+    title: {
+      text: null
+    },
+    labels: {
+      style: {
+        fontSize: '22px'
+      }
+    }
+  },
+  yAxis: {
+    visible: true,
+    gridLineColor: '#fff',
+    gridLineWidth: 20,
+    gridZIndex:10,
+    tickInterval: 2,
+    min: 0,
+    max: 10,
+    labels: {
+      overflow: 'justify'
+    },
+  },
+  tooltip: {
+    enabled: false
+  },
+  plotOptions: {
+    bar: {
+      pointWidth: 10,
+      dataLabels: {
+        enabled: false
+      },
+      color: '#444'
+    }
+  },
+  legend: {
+    enabled: false
+  },
+  series: [{
+    name: 'Skill',
+    data: [].concat(frontEndSkillCategories)
+  }]
+});
+
+$('.skill-type').click(function () {
+  var data = [];
+  $('.skill-type').removeClass('active');
+  switch ($(this).find('h2').text()) {
+    case 'Front End':
+      data = frontEndSkillCategories;
+      break;
+    case 'Back End':
+      data = backEndCategories;
+      break;
+    case 'Tools':
+      data = toolsCategories;
+      break;
+  }
+  skillChart.series[0].setData(data);
+
+  $(this).addClass('active');
+})
+
+$("#slider").roundSlider();
